@@ -27,10 +27,47 @@
  * single product page - product name
  */
 
+ .stock {
+
+ }
+
+ .layout {
+   padding-left: 90px;
+   padding-right: 90px;
+ }
+
+ @media (max-width: 479px) {
+
+ }
+
+ .card {
+   text-align: center;
+   padding: 20px;
+   background-color: #FAFAFA;
+ }
+
+ .card-body {
+   /* margin-bottom: 0px; */
+
+ }
+
+ .product {
+   text-align: center;
+ }
+
+ .price {
+   font-size: 0.75em;
+   font-weight: 600;
+   color: #696969;
+
+ }
+
 .name {
-   background: indigo;
-   color: #fff;
+   background: white;
+   /* border-style: none; */
+   color: #4682B4;
    font-weight: bold;
+   text-align: center;
 }
 
 /**
@@ -81,8 +118,10 @@
  * product image on card
  */
 
-.product-mg {
+.product-img {
   min-heigth: 100px;
+  text-align: center;
+
 }
 
 .jumbotron h2 {
@@ -93,6 +132,11 @@
 @media only screen and (max-width: 600px) {
   .jumbotron h2 {
     margin-top: 30px;
+  }
+
+  .layout {
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
 

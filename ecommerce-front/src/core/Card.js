@@ -69,11 +69,11 @@ const Card = ({page, product, showViewProductButton=true, showAddToCartButton = 
   }
 
   const showStock = (quantity) => {
-    return quantity > 0 ? (
-      <span className="badge badge-primary badge-pill">In Stock</span>
-    ) : (
-      <span className="badge badge-primary badge-pill">Out of Stock</span>
-    )
+    if (!quantity) {
+      return (
+        <div className="badge badge-danger badge-pill stock">Out of Stock</div>
+      )
+    }
   }
 
   const handleChange = (productId) => event => {
@@ -96,37 +96,19 @@ const Card = ({page, product, showViewProductButton=true, showAddToCartButton = 
   }
 
   return (
-    <div className="card">
-      <div className="card-header name">{product.name}</div>
-      <div className="card-body">
-      {shouldRedirect(redirect)}
-      <ShowImage item={product} url="product" />
-        <ShowMoreText
-                  /* Default options */
-                  lines={pagecheck(page)}
-                  more='Show more'
-                  less='Show less'
-                  anchorClass=''
-                  /*onClick={executeOnClick(true)}*/
-                  expanded={false}
-                  width={280}
-              >{product.description.substring(0, 100)}</ShowMoreText>
+    <div className="product">
+      <div className="card" item={product} url="product" onClick={() => {
+          window.location.href = `/product/${product._id}`;
+        }} style={{cursor: "pointer"}}>
 
-        <p className="black-10">${product.price}</p>
-        <p className="black-9">Category: {product.category && product.category.name}</p>
-        <p className="black-8">Added {moment(product.createdAt).fromNow()}</p>
-
-        {showStock(product.quantity)}
-        <br />
-
-        {showViewButton(showViewProductButton)}
-
-        {showAddToCart(showAddToCartButton)}
-
-        {showRemoveButton(showRemoveProductButton)}
-
-        {showCartUpdateOptions(cartUpdate)}
+        <ShowImage item={product} url="product" />
       </div>
+
+      <div className="mt-2 mb-0 name">{product.name}</div>
+      {showStock(product.quantity)}
+      <div className="price">${product.price}</div>
+
+
     </div>
   )
 }

@@ -28,7 +28,7 @@ const Cart = () => {
   )
 
   return (
-    <Layout title="Shopping Cart" description="Manage your cart items. Add remove checkout or continue shopping." className="container-fluid">
+    <Layout title="Shopping Cart" description="Manage your cart items. Add remove checkout or continue shopping." className="container-fluid layout">
       <div className="row ">
         <div className="col-lg-6 col-md-6 col-sm-12">
           {items.length > 0 ? showItems(items) : noItemsMessage()}
