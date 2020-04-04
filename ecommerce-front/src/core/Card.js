@@ -5,7 +5,7 @@ import moment from 'moment'
 import {addItem, updateItem, removeItem} from './cartHelpers'
 import ShowMoreText from 'react-show-more-text';
 
-const Card = ({page, product, showViewProductButton=true, showAddToCartButton = true, cartUpdate=false, showRemoveProductButton=false, setRun = f => f, run = undefined}) => {
+const Card = ({cartPage=false, product, showViewProductButton=true, showAddToCartButton = true, cartUpdate=false, showRemoveProductButton=false, setRun = f => f, run = undefined}) => {
   const [redirect, setRedirect] = useState(false)
   const [count, setCount] = useState(product.count)
 
@@ -57,13 +57,15 @@ const Card = ({page, product, showViewProductButton=true, showAddToCartButton = 
   const showRemoveButton = (showRemoveProductButton) => {
     return (
       showRemoveProductButton && (
-        <button onClick={() => {
-            removeItem(product._id)
-            setRun(!run)
-          }
-          } className="btn btn-outline-danger mt-2 mb-2 mr-2">
-          Remove Product
-        </button>
+        <div className="removeButton">
+          <button onClick={() => {
+              removeItem(product._id)
+              setRun(!run)
+            }
+          } className="btn btn-sm btn-outline-danger">
+            Remove Product
+          </button>
+        </div>
       )
     )
   }
@@ -85,29 +87,75 @@ const Card = ({page, product, showViewProductButton=true, showAddToCartButton = 
   }
 
   const showCartUpdateOptions = (cartUpdate) => {
-    return cartUpdate && <div>
-      <div className="input-group mb-3">
+    return cartUpdate &&
+      <div className="input-group input-group-sm mb-3 cartquantity">
         <div className="input-group-prepend">
-          <span className="input-group-text">Adjust Quantity</span>
+          <span className="input-group-text" >Quantity</span>
         </div>
-        <input type="number" className="form-control" value={count} onChange={handleChange(product._id)} />
+        <input type="number" className="form-control"  value={count} onChange={handleChange(product._id)} />
       </div>
-    </div>
+  }
+
+  const showCartOptions = () => {
+    if (cartPage){
+      return (
+        <div>
+          <div className="mt-2 mb-0 name">{product.name}</div>
+          {showStock(product.quantity)}
+          <div className="price">${product.price}</div>
+          {showCartUpdateOptions(cartUpdate)}
+          {showRemoveButton(showRemoveProductButton)}
+        </div>
+      )
+    }
+  }
+
+  const showSearchOptions = () => {
+    if (!cartPage){
+      return (
+        <div>
+          <div className="mt-2 mb-0 name">{product.name}</div>
+          {showStock(product.quantity)}
+          <div className="price">${product.price}</div>
+          {showCartUpdateOptions(cartUpdate)}
+          {showRemoveButton(showRemoveProductButton)}
+        </div>
+      )
+    }
+  }
+
+  const handleCardClick = (cartPage) => {
+    if (cartPage){
+      window.location.href = `/product/${product._id}`;
+    }
+  }
+
+  const showCardOptions = () => {
+    if (!cartPage) {
+      return (
+          <div className="card" item={product} url="product" onClick={() => {
+              window.location.href = `/product/${product._id}`;
+            }} style={{cursor: "pointer"}}>
+
+            <ShowImage item={product} url="product" />
+            {showCartOptions()}
+          </div>
+      )
+    } else {
+      return (
+        <div className="card" item={product} url="product">
+
+          <ShowImage item={product} url="product" />
+          {showCartOptions()}
+        </div>
+      )
+    }
   }
 
   return (
     <div className="product">
-      <div className="card" item={product} url="product" onClick={() => {
-          window.location.href = `/product/${product._id}`;
-        }} style={{cursor: "pointer"}}>
-
-        <ShowImage item={product} url="product" />
-      </div>
-
-      <div className="mt-2 mb-0 name">{product.name}</div>
-      {showStock(product.quantity)}
-      <div className="price">${product.price}</div>
-
+      {showCardOptions()}
+      {showSearchOptions()}
 
     </div>
   )

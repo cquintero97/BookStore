@@ -18,7 +18,7 @@ const Cart = () => {
       <div>
         <h2>Your cart has {`${items.length}`} items</h2>
         <hr/>
-        {items.map((product, i) => (<Card key={i} product={product} showAddToCartButton={false} cartUpdate={true} showRemoveProductButton={true} setRun={setRun} run={run}/>))}
+        {items.map((product, i) => (<Card style={{cursor: ""}}cartPage={true} key={i} product={product} showAddToCartButton={false} cartUpdate={true} showRemoveProductButton={true} setRun={setRun} run={run}/>))}
       </div>
     )
   }
@@ -34,8 +34,8 @@ const Cart = () => {
           {items.length > 0 ? showItems(items) : noItemsMessage()}
         </div>
 
-        <div className="col-lg-6 col-md-6 col-sm-12" style={{paddingTop: 100, paddingBottom: 50}}>
-          <h2 className="mb-4">Your cart summary</h2>
+        <div className="col-lg-6 col-md-6 col-sm-12" style={{ paddingBottom: 50}}>
+          <h2 className="mb-2">Your cart summary</h2>
           <hr/>
           <Checkout products={items} setRun={setRun} run={run} />
         </div>
