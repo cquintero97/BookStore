@@ -43,7 +43,7 @@ const Product = (props) => {
   }
 
   const showAddToCart = () => {
-    return product.quantity > 1 ? (
+    return product.quantity > 0 ? (
         <button onClick={addToCart} type="button" className="btn btn-info bt-sm mt-2 mb-2 mr-0 addCart">
           Add to cart
         </button>
@@ -55,7 +55,7 @@ const Product = (props) => {
   }
 
   const showAvailability = () => {
-    return product.quantity > 1 ? (
+    return product.quantity > 0 ? (
       <p className="availability mt-2 mb-0">Availability: <strong>In Stock</strong></p>
     ) : (
       <p className="availability mt-2 mb-0" align="left">Availability: <strong style={{color: 'red'}}>Out of Stock</strong></p>
@@ -73,7 +73,7 @@ const Product = (props) => {
       <div  className="productDetails">
         <div className="row mb-4 justify-content-md-center">
           <div className="col-md-6" >
-            <div className="card ml-5 mr-5" item={product} url="product">
+            <div  className="card ml-5 mr-5" item={product} url="product">
               <ShowImage item={product} url="product" />
             </div>
             <div className="ml-5 mr-5" >
@@ -97,8 +97,8 @@ const Product = (props) => {
         </div>
         <div className="row">
           {relatedProduct.map((p, i) => (
-            <div className="mb-3">
-              <Card key={i} product={p} />
+            <div key={i} className="mb-3">
+              <Card  product={p} />
             </div>
           ))}
         </div>

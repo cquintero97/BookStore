@@ -61,7 +61,7 @@
 .removeButton {
   width: 50%;
   float: right;
-
+  text-align: right;
 }
 
 /**
@@ -111,7 +111,7 @@
    /* border-style: none; */
    color: #4682B4;
    font-weight: bold;
-   text-align: center;
+
 }
 
 /**
