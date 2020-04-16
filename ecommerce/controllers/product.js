@@ -23,6 +23,10 @@ exports.read = (req, res) => {
 	return res.json(req.product)
 }
 
+exports.checkStock = (req, res) => {
+	return res.json(req.product.quantity)
+}
+
 
 exports.create = (req, res) => {
 	let form = new formidable.IncomingForm()
