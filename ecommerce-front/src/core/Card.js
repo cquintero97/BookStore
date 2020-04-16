@@ -22,10 +22,10 @@ const Card = ({cartPage=false, product, showViewProductButton=true, showAddToCar
   }
 
   const pagecheck = (page) => {
-    if(page=="productPage")
-      return 0
-    else
-      return 1
+    return (page=="productPage") ?
+     0
+    :
+    1
   }
 
   const executeOnClick = (isExpanded) => {
@@ -80,9 +80,13 @@ const Card = ({cartPage=false, product, showViewProductButton=true, showAddToCar
 
   const handleChange = (productId) => event => {
     setRun(!run)
-    setCount(event.target.value < 1 ? 1 : event.target.value)
-    if(event.target.value >= 1) {
-      updateItem(productId, event.target.value)
+    let val = parseFloat(event.target.value).toFixed(0) // ensures only whole nums
+    setCount(val < 1 || val == 'NaN' ? 1 : val)
+    if (val == 'NaN'){ //when user selects input and presses 'delete' key
+      val = 1
+    }
+    if(val >= 1) {
+      updateItem(productId, val)
     }
   }
 
@@ -90,7 +94,7 @@ const Card = ({cartPage=false, product, showViewProductButton=true, showAddToCar
     return cartUpdate &&
       <div className="input-group input-group-sm mb-3 cartquantity">
         <div className="input-group-prepend">
-          <span className="input-group-text" >Quantity</span>
+          <span className="input-group-text">Quantity</span>
         </div>
         <input type="number" className="form-control"  value={count} onChange={handleChange(product._id)} />
       </div>

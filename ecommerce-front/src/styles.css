@@ -24,8 +24,10 @@
 }
 
 .availability {
-  text-align: right;
-  width: 100%;
+  float: right;
+  text-align: left;
+  padding-left: 15px;
+  width: 50%;
   font-size: 0.8em;
   font-weight: 600;
   color: #696969;
@@ -36,8 +38,7 @@
 }
 
 .product-price {
-  float:left;
-  width: 50%;
+  float:right;
   font-size: 1.2em;
   font-weight: 600;
   color: #696969;
@@ -81,6 +82,7 @@
    text-align: center;
    padding: 20px;
    background-color: #FAFAFA;
+
  }
 
  .card-body {
@@ -92,6 +94,8 @@
    text-align: center;
    margin-bottom: 20px;
  }
+
+
 
  .productImage {
    padding-top: 20px;
@@ -172,6 +176,11 @@
 
 }
 
+.productCard {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
 .jumbotron h2 {
   margin-top: 0px;
 }
@@ -185,6 +194,11 @@
   .layout {
     padding-left: 30px;
     padding-right: 30px;
+  }
+
+  .productCard {
+    margin-left: 20px;
+    margin-right: 20px;;
   }
 }
 

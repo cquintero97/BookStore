@@ -47,9 +47,10 @@ const Checkout = ({products, setRun = f => f, run = undefined}) => {
     }
 
   const getTotal = () => {
-    return products.reduce((currentValue, nextValue) => {
+    let total =  products.reduce((currentValue, nextValue) => {
       return currentValue + nextValue.count * nextValue.price
     }, 0)
+    return total.toFixed(2)
   }
 
   const showCheckout = () => {
@@ -62,9 +63,30 @@ const Checkout = ({products, setRun = f => f, run = undefined}) => {
     )
   }
 
+  const checkCartAvailability = () => {
+    if (products
+        .filter((p)=> {
+          console.log(p._id)
+          if (p.count > p.quantity) {
+            alert(`Sorry! "${p.name}" only has ${p.quantity} copies available. Please adjust your cart.`)
+            return 1
+          } else {
+            return 0
+          }
+        })
+        .length > 0) {
+          console.log("not enough in stock")
+    } else {
+      console.log("enough in stock")
+    }
+  }
+
   let deliveryAddress = mydata.address
 
   const buy = () => {
+    console.log(products)
+    checkCartAvailability()
+    return
     setData({loading: true})
     // send the nonce to your Server
     // nonce = data.instance.requestPaymentMethod()

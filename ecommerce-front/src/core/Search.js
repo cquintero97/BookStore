@@ -62,12 +62,15 @@ const Search = () => {
   const searchedProducts = (results = []) => {
     return (
       <div>
-        <h2 className="mt-4 mb-4">
-          {searchMessage(searched, results)}
-        </h2>
         <div className="row">
-
-          {results.map((product, i) => (<div key={i} className="col-lg-3 col-md-4 col-sm-12 mb-3"><Card product={product} /></div>))}
+          <div className="col">
+              <h2 className="mt-4 mb-4">
+                {searchMessage(searched, results)}
+              </h2>
+          </div>
+        </div>
+        <div className="row">
+          {results.map((product, i) => (<div key={i} className="col-lg-3 col-md-4 col-sm-12 mb-4"><Card product={product} /></div>))}
         </div>
       </div>
     )
@@ -76,7 +79,7 @@ const Search = () => {
   const searchForm = () => (
     <form onSubmit={searchSubmit}>
       <span className="input-group-text">
-        <div className="input-group input-group-lg">
+        <div className="input-group input-group">
           <div className="input-group-prepend">
             <select className="btn mr-2" onChange={handleChange('category')}>
               <option value="All">All</option>
@@ -93,14 +96,17 @@ const Search = () => {
   )
 
   return (
-    <div className="row">
-      <div className="container mb-3">
-        {searchForm()}
+    <div>
+      <div className="row">
+        <div className="col mb-3">
+          {searchForm()}
+        </div>
       </div>
-      <div className="container-fluid">
-        {searchedProducts(results)}
+      <div className="row">
+        <div className="col">
+          {searchedProducts(results)}
+        </div>
       </div>
-
     </div>
   )
 }
