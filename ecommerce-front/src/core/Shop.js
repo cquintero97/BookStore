@@ -5,6 +5,7 @@ import { getCategories, getFilteredProducts } from "./apiCore";
 import Checkbox from "./Checkbox";
 import Radiobox from "./Radiobox";
 import { prices } from "./fixedPrices";
+import { Collapse, Button } from 'reactstrap';
 
 const Shop = () => {
     const [myFilters, setMyFilters] = useState({
@@ -16,6 +17,11 @@ const Shop = () => {
     const [skip, setSkip] = useState(0);
     const [size, setSize] = useState(0);
     const [filteredResults, setFilteredResults] = useState([]);
+    const [isOpen, setIsOpen] = useState(true);
+
+    const toggle = () => {
+      setIsOpen(!isOpen)
+    }
 
     const init = () => {
         getCategories().then(data => {
@@ -65,9 +71,18 @@ const Shop = () => {
         );
     };
 
+    const checkScreen = () => {
+      if (window.innerWidth < 800) {
+        setIsOpen(false)
+      } else {
+        setIsOpen(true)
+      }
+    }
+
     useEffect(() => {
         init();
         loadFilteredResults(skip, limit, myFilters.filters);
+        checkScreen();
     }, []);
 
     const handleFilters = (filters, filterBy) => {
@@ -103,6 +118,8 @@ const Shop = () => {
         >
             <div className="row">
                 <div className="col-md-4">
+                  <h2 className="filterToggle" color="primary" onClick={toggle} style={{cursor:'pointer', marginBottom: '1rem' }}>Filters</h2>
+                  <Collapse isOpen={isOpen}>
                     <h4>Filter by categories</h4>
                     <ul>
                         <Checkbox
@@ -122,6 +139,7 @@ const Shop = () => {
                             }
                         />
                     </div>
+                  </Collapse>
                 </div>
 
                 <div className="col-md-8">
