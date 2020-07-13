@@ -64,37 +64,63 @@ const Checkout = ({products, setRun = f => f, run = undefined}) => {
     )
   }
 
-  const checkCartAvailability = () => {
-    if (products
-        .filter((p)=> {
-          console.log(p._id)
-          let pStock
-          checkStock(p._id).then(data => {
-            pStock = data
-            console.log(pStock)
-          }).then(() => {
-            if (p.count > pStock) {
-              alert(`Sorry! "${p.name}" only has ${pStock} copy(ies) available. Please adjust your cart.`)
-              return 1
-            } else {
-              return 0
-            }
-          })
+  // const checkCartAvailability = () => {
+  //   if (products
+  //       .filter((p)=> {
+  //         console.log(p._id)
+  //         let pStock
+  //         checkStock(p._id).then(data => {
+  //           pStock = data
+  //           console.log(pStock)
+  //         }).then(() => {
+  //           if (p.count > pStock) {
+  //             alert(`Sorry! "${p.name}" only has ${pStock} copy(ies) available. Please adjust your cart.`)
+  //             return 1
+  //           } else {
+  //             return 0
+  //           }
+  //         })
+  //       })
+  //       .length > 0) {
+  //         console.log("not enough in stock")
+  //         return false
+  //   } else {
+  //     console.log("enough in stock")
+  //     return true
+  //   }
+  // }
+
+  const checkCartAvailability = (amount) => {
+    return new Promise ((resolve, reject) => {
+      // while (1) {
+        checkStock(products[amount]._id).then((data) => {
+          if (products[amount].count > data){
+            alert(`Sorry! "${products[amount].name}" only has ${data} copy(ies) available. Please adjust your cart.`)
+            reject(data)
+          } else {
+            resolve(data)
+          }
         })
-        .length > 0) {
-          console.log("not enough in stock")
-          return false
-    } else {
-      console.log("enough in stock")
-      return true
+      // }
+    })
+  }
+
+  function scanCart(amount) {
+    if (amount == 0){
+      return Promise.resolve()
     }
+    return checkCartAvailability(amount-1).then(() => {
+      return scanCart(amount - 1)
+    }).catch(() => {
+      return Promise.reject()
+    })
   }
 
   let deliveryAddress = mydata.address
 
   const buy = () => {
-    console.log(products)
-    if (checkCartAvailability()) {
+    console.log(products.length)
+    scanCart(products.length).then(() => {
       setData({loading: true})
       // send the nonce to your Server
       // nonce = data.instance.requestPaymentMethod()
@@ -147,7 +173,9 @@ const Checkout = ({products, setRun = f => f, run = undefined}) => {
         console.log('dropin error: ', error)
         setData({...mydata, error: error.message})
       })
-    }
+    }).catch(error => {
+      console.log("not enough")
+    })
   }
 
   const showDropIn = () => (
