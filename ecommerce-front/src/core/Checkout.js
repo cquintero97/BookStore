@@ -64,32 +64,6 @@ const Checkout = ({products, setRun = f => f, run = undefined}) => {
     )
   }
 
-  // const checkCartAvailability = () => {
-  //   if (products
-  //       .filter((p)=> {
-  //         console.log(p._id)
-  //         let pStock
-  //         checkStock(p._id).then(data => {
-  //           pStock = data
-  //           console.log(pStock)
-  //         }).then(() => {
-  //           if (p.count > pStock) {
-  //             alert(`Sorry! "${p.name}" only has ${pStock} copy(ies) available. Please adjust your cart.`)
-  //             return 1
-  //           } else {
-  //             return 0
-  //           }
-  //         })
-  //       })
-  //       .length > 0) {
-  //         console.log("not enough in stock")
-  //         return false
-  //   } else {
-  //     console.log("enough in stock")
-  //     return true
-  //   }
-  // }
-
   const checkCartAvailability = (amount) => {
     return new Promise ((resolve, reject) => {
       // while (1) {

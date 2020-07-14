@@ -82,7 +82,7 @@ const Card = ({cartPage=false, product, showViewProductButton=true, showAddToCar
     setRun(!run)
     let val = parseFloat(event.target.value).toFixed(0) // ensures only whole nums
     setCount(val < 1 || val == 'NaN' ? 1 : val)
-    if (val == 'NaN'){ //when user selects input and presses 'delete' key
+    if (val == 'NaN' || val == 0){ //when user selects input and presses 'delete' key
       val = 1
     }
     if(val >= 1) {
