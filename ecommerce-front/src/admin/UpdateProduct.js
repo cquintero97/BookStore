@@ -7,7 +7,7 @@ import {read} from '../core/apiCore'
 
 const UpdateProduct = ({match}) => {
   const [product, setProduct] = useState({})
-    const [err, setErr] = useState(false)
+  const [err, setErr] = useState(false)
 
   const loadSingleProduct = productId => {
     read(productId).then(data => {
@@ -21,13 +21,13 @@ const UpdateProduct = ({match}) => {
 
   const [values, setValues] = useState({
     name: '',
-		description: '',
-		price: '',
-		categories: [],
+	  description: '',
+	  price: '',
+	  categories: [],
     category: '',
     shipping: '',
-		quantity: '',
-		photo: '',
+	  quantity: '',
+	  photo: '',
     loading: false,
     error: '',
     createdProduct: '',
@@ -79,6 +79,7 @@ const UpdateProduct = ({match}) => {
       if(data.error) {
         setValues({...values, error: data.error})
       } else {
+      console.log(data)
         setValues({categories: data, formData: new FormData()})
       }
     })
@@ -171,7 +172,7 @@ const UpdateProduct = ({match}) => {
         <select onChange={handleChange('category')} className="form-control" >
 
           <option>Please select</option>
-          {categories && categories.map((c, i) => showOptions(c,i))}
+          {product.category && categories.map((c, i) => showOptions(c,i))}
 
         </select>
       </div>
