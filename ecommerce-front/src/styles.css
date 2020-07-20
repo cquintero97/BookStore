@@ -80,7 +80,7 @@
   color: #696969;
 }
 
-.addCart {
+/* .addCart {
   float: right;
   width: 50%;
   background-color: #4682B4;
@@ -88,7 +88,7 @@
 
 .addCart:hover {
   background-color: #24435c;
-}
+} */
 
 .cartquantity {
   float: left;

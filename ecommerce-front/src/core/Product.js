@@ -49,7 +49,7 @@ const Product = (props) => {
         </button>
     ) : (
       <button type="button" className="btn btn-info bt-sm addCart">
-        Add to cart
+        Unavailable
       </button>
     )
   }

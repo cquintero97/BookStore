@@ -66,7 +66,6 @@ const Checkout = ({products, setRun = f => f, run = undefined}) => {
 
   const checkCartAvailability = (amount) => {
     return new Promise ((resolve, reject) => {
-      // while (1) {
         checkStock(products[amount]._id).then((data) => {
           if (products[amount].count > data){
             alert(`Sorry! "${products[amount].name}" only has ${data} copy(ies) available. Please adjust your cart.`)
@@ -75,7 +74,6 @@ const Checkout = ({products, setRun = f => f, run = undefined}) => {
             resolve(data)
           }
         })
-      // }
     })
   }
 

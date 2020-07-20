@@ -7,7 +7,7 @@ import {read} from '../core/apiCore'
 
 const UpdateProduct = ({match}) => {
   const [product, setProduct] = useState({})
-    const [err, setErr] = useState(false)
+  const [err, setErr] = useState(false)
 
   const loadSingleProduct = productId => {
     read(productId).then(data => {
